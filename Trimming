@@ -7,7 +7,7 @@ cd /mnt/c/Users/jseari2/Desktop/Data/Ernesto #destination of trimmed reads
 for seq in /mnt/c/Users/jseari2/Desktop/Data/Ernesto/*R1_001.fastq.gz
 do
 
-name=$(echo $seq | sed 's:/mnt/c/Users/jseari2/Desktop/Data/Ernesto/::' | sed 's/_R1_001.fastq.gz//')
+name=$(echo $seq | sed 's:/mnt/c/Users/jseari2/Desktop/Data/Ernesto/::' | sed 's/_R1_001.fastq.gz//') #directory of raw data
 echo $name
 
 ###Trim reads using Trimmomatic, paired end sequences###
