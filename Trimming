@@ -1,0 +1,16 @@
+#!/bin/bash
+cd /mnt/c/Users/jseari2/Desktop/Data/Ernesto
+
+for seq in /mnt/c/Users/jseari2/Desktop/Data/Ernesto/*R1_001.fastq.gz
+do
+
+name=$(echo $seq | sed 's:/mnt/c/Users/jseari2/Desktop/Data/Ernesto/::' | sed 's/_R1_001.fastq.gz//')
+echo $name
+
+###Trim reads using Trimmomatic, paired end sequences###
+
+
+java -jar /mnt/c/Users/jseari2/Desktop/Programs/Trimmomatic/dist/jar/trimmomatic-0.40-rc1.jar PE -threads 16 /mnt/c/Users/jseari2/Desktop/Data/Ernesto/${name}_R1_001.fastq.gz /mnt/c/Users/jseari2/Desktop/Data/Ernesto/${name}_R2_001.fastq.gz \
+${name}_r1_trimmed.fq.gz ${name}_r1_unpaired.fq.gz ${name}_r2_trimmed.fq.gz ${name}_r2_unpaired.fq.gz ILLUMINACLIP:illumina_adapters.fasta:2:30:10 HEADCROP:5 SLIDINGWINDOW:5:25 MINLEN:34
+
+done
