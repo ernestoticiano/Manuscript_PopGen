@@ -1,5 +1,8 @@
 #!/bin/bash
-cd /mnt/c/Users/jseari2/Desktop/Data/Ernesto
+
+module load jdk
+
+cd /mnt/c/Users/jseari2/Desktop/Data/Ernesto #destination of trimmed reads
 
 for seq in /mnt/c/Users/jseari2/Desktop/Data/Ernesto/*R1_001.fastq.gz
 do
