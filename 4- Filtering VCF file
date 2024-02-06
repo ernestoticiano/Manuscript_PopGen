@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#The g.vcf file "genotyped.vcf" was produced from 96 c. cf. flagellaris isolates. 
+
+##First round of filtering##
+vcftools --vcf --genotyped.vcf --minGQ 30 --minDP 5 --max-missing 0.7 --mac 1 --recode --out cflag.filt1.hetero.07.05.vcf
+	#After filtering, kept 96 out of 96 Individuals
+	#Outputting VCF file...
+	#After filtering, kept 1290868 out of a possible 4328638 Sites
+	#Run Time = 284.00 seconds
+
+#>>Opened in tassel >> Saved as homozygous cflag.filt1.hetero.07.05.vcf -> cflag.filt1.homo.07.05.vcf
+
+##Second rounf of filtering##
+vcftools --vcf --cflag.filt1.homo.07.05.vcf --minGQ 30 --minDP 5 --max-missing 0.7 --mac 1 --recode --out cflag.filt2.hetero.07.05.vcf
+	#After filtering, kept 96 out of 96 Individuals
+	#Outputting VCF file...
+	#After filtering, kept 1020094 out of a possible 1290868 Sites
+	#Run Time = 115.00 seconds
+
+#>>Opened in tassel >> Saved as homozygous cflag.filt1.hetero.07.05.vcf -> cflag.filt2.homo.07.05.vcf
+
+################################################
+##cflag.filt2.homo.07.05.vcf == final dataset!##
+################################################
