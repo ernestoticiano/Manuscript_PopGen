@@ -1,0 +1,27 @@
+!/bin/bash
+#PBS -l nodes=1:ppn=20
+#PBS -l walltime=72:00:00
+#PBS -N cflag_genotyping
+#PBS -o cflag_genotyping_stdout
+#PBS -e cflag_genotyping_stderr
+#PBS -q workq
+#PBS -A hpc_hpc_myco08
+#PBS -m e
+#PBS -M edasilva@agcenter.lsu.edu
+
+
+cd /work/ets/GenomeResequencing/ #directory with *.md.sorted.bam files
+
+module load samtools
+module load gatk
+module load jdk
+module load gnuparallel
+
+### Create .fai and .dict files of reference genome ### (if you don't put the .dict file extension at the end of the -o flag.... you'll wipe your reference genome)
+
+samtools dict /work/ets/GenomeResequencing/cflagellaris.fa -o /work/ets/GenomeResequencing/cflagellaris.dict
+samtools faidx /work/ets/GenomeResequencing/cflagellaris.fa
+
+### Manually create "sample_list.txt" ### (THESE SAMPLE ID'S HAVE TO BE THE SAME AS BAM FILES!!!)
+
+cat sample_list.txt | parallel --verbose -j 8 "gatk HaplotypeCaller -R /work/ets/GenomeResequencing/cflagellaris.fa -I {}.sorted.md.bam -O {}.g.vcf -ERC GVCF"
